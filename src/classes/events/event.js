@@ -2,23 +2,13 @@
 var moment = require('moment');
 
 export default class Event {
-  constructor(interval, type, time) {
+  constructor(interval, type = 'interval', time = '00') {
     this.interval = interval;
     this.lastChecked = 0;
     this.nextCheck = interval;
     
-    if(type) {
-      this.eventType = type;
-    } else {
-      this.eventType = 'interval'
-    }
-    
-    if(time){
-      this.eventTime = time;
-    } else {
-      this.eventTime = '00';
-    }
-    
+    this.eventType = type;
+    this.eventTime = time;
 
     if(type == 'timed') {
       this.setExecution();
@@ -44,6 +34,7 @@ export default class Event {
 
   //abstract function - must be overridden
   checkEvent() {
+
   }
 
   //abstract function - must be overridden

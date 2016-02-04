@@ -43,7 +43,7 @@ export default class EventLoop {
       return;
     }
 
-    let newEvent = new EmailEvent(5, 'timed', '06:30:00');
+    let newEvent = new EmailEvent(5, 'timed', '10:35:00');
     this.events.push(newEvent);
     console.log("Added event");
   }
