@@ -1,8 +1,7 @@
 var config = require('../../../config');
 
-export default class SMS {
+class SMS {
   constructor() {
-    console.log(config.twilioKey);
     this.client = require('twilio')(config.twilioKey, config.twilioAuth);
   }
   sendText(to, message) {
@@ -21,3 +20,5 @@ export default class SMS {
     });
   }
 }
+
+export default new SMS();

@@ -1,7 +1,7 @@
 import http from 'http';
 
 
-export default class CustomHTTP {
+class CustomHTTP {
     get(host, path) {
         return new Promise((resolve, reject) => {
             var options = {
@@ -31,5 +31,7 @@ export default class CustomHTTP {
         
     }
 }
+
+export default new CustomHTTP();
      
       

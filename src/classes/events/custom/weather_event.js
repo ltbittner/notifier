@@ -8,11 +8,8 @@ var config = require('../../../../config');
 export default class WeatherEvent extends Event {
   constructor(interval, type, time) {
     super(interval, type, time);
-    this.http = new CustomHTTP();
-    this.email = new Email();
-    this.sms = new SMS();
   }
-
+ 
   //Do a function in here - if it passes, call this.eventAction();
   checkEvent() {
     if(this.eventType == 'timed') {
@@ -24,7 +21,7 @@ export default class WeatherEvent extends Event {
   checkWeather() {
     let cityID = "6173331";
     let apiKey = config.weatherKey;
-    let i = this.http.get('api.openweathermap.org', '/data/2.5/forecast?id=' + cityID + '&appid=' + apiKey);
+    let i = CustomHTTP.get('api.openweathermap.org', '/data/2.5/forecast?id=' + cityID + '&appid=' + apiKey);
     i.then((resp) => {
       var whenWillItRain = "Not going to rain today! (Hopefully)";
 
@@ -50,8 +47,8 @@ export default class WeatherEvent extends Event {
   //function to call when event passes
   eventAction(message) { 
     console.log("EVENT ACTION");
-    //this.email.sendEmail(['logan@thinkingbox.ca'], 'noreply@notify.com', 'Weather report!', message);
-    //this.sms.sendText('+14038779943', message);
+    //Email.sendEmail(['logan@thinkingbox.ca'], 'noreply@notify.com', 'Weather report!', message);
+    //SMS.sendText('+14038779943', message);
   }
 
 

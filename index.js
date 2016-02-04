@@ -1,13 +1,28 @@
-let express = require('express');
-let app = express();
+const express = require('express');
+const app = express();
 import EventLoop from './src/eventloop.js';
 
 let _loop = new EventLoop();
 _loop.startLoop();
 
-app.get('/', (req, res) => {
-  _loop.addEvent();
+app.post('/add/timed/', (req, res) => {
+  let type = req.params.type;
+  let time = req.params.time;
+
+  _loop.addTimedEvent(type, time);
   res.send("Added event");
 });
 
-app.listen(3000);
+app.post('/add/interval/', (req, res) => {
+  let type = req.params.type;
+  let time = req.params.time;
+
+  _loop.addIntervalEvent(type, time);
+  res.send("Added event"); 
+});
+
+app.get('/', (req, res) => {
+  res.send("YO");
+});
+
+app.listen(3001); 

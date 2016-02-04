@@ -37,16 +37,29 @@ export default class EventLoop {
     
   }
 
-  addEvent() {
-    if(!this.events) {
-      console.log("EVENTS IS NULL"); 
-      return;
+  addTimedEvent(type, time) {
+    switch (type) {
+      case 'rain':
+          let newEvent = new EmailEvent(0, 'timed', time);
+          this.events.push(newEvent);
+        break;
+      default:
+        
+        break;
     }
-
-    let newEvent = new EmailEvent(5);
-    this.events.push(newEvent);
-    console.log("Added event");
+    console.log(`added ${type} event`);
   }
 
-
+  addIntervalEvent(type, interval) {
+    switch (type) {
+      case 'rain':
+          let newEvent = new EmailEvent(interval);
+          this.events.push(newEvent);
+        break;
+      default:
+        
+        break;
+    }
+    console.log(`added ${type} event`);
+  }
 }
