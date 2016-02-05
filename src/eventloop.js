@@ -40,7 +40,7 @@ export default class EventLoop {
   addTimedEvent(type, time) {
     switch (type) {
       case 'rain':
-          let newEvent = new EmailEvent(0, 'timed', time);
+          let newEvent = new EmailEvent(time, 'timed','Rain');
           this.events.push(newEvent);
         break;
       default:
@@ -53,7 +53,7 @@ export default class EventLoop {
   addIntervalEvent(type, interval) {
     switch (type) {
       case 'rain':
-          let newEvent = new EmailEvent(interval);
+          let newEvent = new EmailEvent(interval, 'interval', "Rain");
           this.events.push(newEvent);
         break;
       default:

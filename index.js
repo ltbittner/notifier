@@ -17,7 +17,19 @@ app.all('*', function(req, res, next) {
  });
 
 app.get('/all', (req, res) => {
+  let resp = [];
 
+  for(let e of _loop.events) {
+    resp.push({
+      id: e.id,
+      type: e.name,
+      method: e.eventType,
+      time: e.eventTime,
+      active: e.isActive
+    });
+  }
+
+  res.send(resp);
 })
 
 app.post('/add/timed/', (req, res) => {
@@ -34,6 +46,61 @@ app.post('/add/interval/', (req, res) => {
 
   _loop.addIntervalEvent(type, time);
   res.send("Added event"); 
+});
+
+app.post('/run/', (req, res) => {
+  let id = req.body.id;
+
+  for(let e of _loop.events) {
+    if(e.id == id) {
+      e.checkEvent();
+      res.send("success");
+      break;
+    }
+  }
+});
+
+app.post('/disable/', (req, res) => {
+  let id = req.body.id;
+
+  for(let e of _loop.events) {
+    if(e.id == id) {
+      e.isActive = false;
+      res.send("success");
+      break;
+    }
+  }
+});
+
+app.post('/enable/', (req, res) => {
+  let id = req.body.id;
+
+  for(let e of _loop.events) {
+    if(e.id == id) {
+      e.isActive = true;
+      res.send("success");
+      break;
+    }
+  }
+});
+
+app.post('/delete/', (req, res) => {
+  let id = req.body.id;
+  let index = 0;
+  let deleteIndex = -1;
+  for(let e of _loop.events) {
+    if(e.id == id) {
+      deleteIndex = index;
+      break;
+    }
+    index++;
+  }
+
+  if(deleteIndex > -1) {
+    _loop.events.splice(deleteIndex, 1);
+  }
+
+  res.send("success");
 });
 
 app.get('/', (req, res) => {

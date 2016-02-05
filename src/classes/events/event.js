@@ -2,15 +2,17 @@
 var moment = require('moment');
 
 export default class Event {
-  constructor(interval, type = 'interval', time = '00') {
+  constructor(interval, type = 'interval', name) {
     this.interval = interval;
     this.lastChecked = 0;
     this.nextCheck = interval;
     
     this.eventType = type;
-    this.eventTime = time;
+    this.eventTime = interval;
+    this.name = name;
 
     this.isActive = true;
+    this.id = this.makeid();
 
     if(type == 'timed') {
       this.setExecution();
@@ -19,7 +21,7 @@ export default class Event {
 
   setExecution() {
     if(!this.isActive) return;
-    
+
     var now = moment();
     
     var then = moment();
@@ -30,7 +32,7 @@ export default class Event {
 
     if(now >= then) {
       let day = now.day();
-      then.day(day + 1);
+      then.day(day + 1); 
     }
 
     setTimeout(this.checkEvent.bind(this), then.diff(now));
@@ -56,5 +58,16 @@ export default class Event {
 
   updateNextCheck() {
     this.lastChecked = 0;
+  }
+
+  makeid()
+  {
+      var text = "";
+      var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+      for( var i=0; i < 5; i++ )
+          text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+      return text;
   }
 }
