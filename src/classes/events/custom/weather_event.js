@@ -6,8 +6,8 @@ import CustomHTTP from '../../helpers/http';
 var config = require('../../../../config');
 
 export default class WeatherEvent extends Event {
-  constructor(interval, type, time) {
-    super(interval, type, time);
+  constructor(interval, type, name) {
+    super(interval, type, name);
   }
  
   //Do a function in here - if it passes, call this.eventAction();

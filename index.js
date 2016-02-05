@@ -35,16 +35,18 @@ app.get('/all', (req, res) => {
 app.post('/add/timed/', (req, res) => {
   let type = req.body.type;
   let time = req.body.time;
+  let options = req.body.options;
 
-  _loop.addTimedEvent(type, time);
+  _loop.addTimedEvent(type, time, options);
   res.send("Added event");
 });
 
 app.post('/add/interval/', (req, res) => {
   let type = req.body.type;
   let time = req.body.time;
+  let options = req.body.options;
 
-  _loop.addIntervalEvent(type, time);
+  _loop.addIntervalEvent(type, time, options);
   res.send("Added event"); 
 });
 
@@ -98,13 +100,20 @@ app.post('/delete/', (req, res) => {
 
   if(deleteIndex > -1) {
     _loop.events.splice(deleteIndex, 1);
-  }
+  } 
 
-  res.send("success");
+  res.send("success"); 
 });
 
 app.get('/', (req, res) => {
-  res.send("YO");
+  _loop.addIntervalEvent('electronic', '5', { 
+    itemName: "lightning cable",
+    checkForSale: false,
+    maxPrice: "40",
+    onSale: true
+  });   
+
+  res.send("YO"); 
 }); 
 
-app.listen(3001); 
+app.listen(3002); 
