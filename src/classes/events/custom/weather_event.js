@@ -40,7 +40,7 @@ export default class WeatherEvent extends Event {
     
     })
     .catch((error) => {
-      console.log(error);
+      console.log(error); 
     });
   }
 

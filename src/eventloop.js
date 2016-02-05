@@ -27,7 +27,7 @@ export default class EventLoop {
     if(!this.events || this.events.length == 0) return;
       
     for(let e of this.events){
-      if(e.eventType == 'interval') {
+      if(e.eventType == 'interval' && e.isActive) {
          e.check(this.interval);
       } 
     }

@@ -10,12 +10,16 @@ export default class Event {
     this.eventType = type;
     this.eventTime = time;
 
+    this.isActive = true;
+
     if(type == 'timed') {
       this.setExecution();
     }
   }
 
   setExecution() {
+    if(!this.isActive) return;
+    
     var now = moment();
     
     var then = moment();
